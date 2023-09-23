@@ -26,6 +26,11 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self.bullets.update()
+
+            # Удаление снарядов, вышедших за край экрана
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
             self._update_screen()
             # При каждом проходе цикла перерисовывается экран
             self.screen.fill(self.settings.bg_color)
