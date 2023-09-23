@@ -22,7 +22,8 @@ class Ship:
         '''Обновляет позицию корабля с учетом флагов'''
         if self.moving_right:
             self.rect.x += 1
-        
+        if self.moving_left:
+            self.rect.x -= 1
 
     def blitme(self):
         # Рисует корабль в текущей позиции
