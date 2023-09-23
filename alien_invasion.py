@@ -51,6 +51,7 @@ class AlienInvasion:
 
         pygame.display.flip()
 
+
 if __name__ == '__main__':
     # Создание экземпляра и запсук игры
     ai = AlienInvasion()
