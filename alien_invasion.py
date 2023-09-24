@@ -22,7 +22,7 @@ class AlienInvasion:
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
 
-        self._creat_fleet()
+        self._create_fleet()
 
     def run_game(self):
         '''Запуск основного цикла игры'''
@@ -37,7 +37,7 @@ class AlienInvasion:
             self.screen.fill(self.settings.bg_color)
             self.ship.blitme()
             # отображение последнего отрисованного экрана
-            pygame.display.flip()
+            #pygame.display.flip()
 
     def _check_events(self):
         # Обрабатывает события клавиатуры и мыши
@@ -83,6 +83,12 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
 
+    def _update_aliens(self):
+        '''Проверяет достиг ли флот края экрана и
+        Обновляет позиции всех пришельцев во флоте'''
+        self._check_fleet_edges()
+        self.aliens.update()
+
     def _update_screen(self):
         '''Обновляет изображения на экране и отображает новый экран'''
         self.screen.fill(self.settings.bg_color)
@@ -92,7 +98,7 @@ class AlienInvasion:
         self.aliens.draw(self.screen)
         pygame.display.flip()
 
-    def _creat_fleet(self):
+    def _create_fleet(self):
         '''Создание флота вторжения'''
         # Создание пришельца и вычисление количества пришельцев в ряду
         # Интервал между двумя пришельцами равен ширине пришельца
@@ -120,9 +126,18 @@ class AlienInvasion:
         alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
         self.aliens.add(alien)
 
-    def _update_aliens(self):
-        '''Обновляет позиции всех пришельцев во флоте'''
-        self.aliens.update()
+    def _change_fleet_direction(self):
+        '''Опускает весь флот и меняет направление флота'''
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed
+        self.settings.fleet_direction *= -1
+
+    def _check_fleet_edges(self):
+        '''Реагирует на достижение пришельцем края экрана'''
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
 
 
 if __name__ == '__main__':
