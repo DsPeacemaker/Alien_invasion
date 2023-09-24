@@ -102,11 +102,15 @@ class AlienInvasion:
 
         # Создани первого ряда пришельцев
         for alien_number in range(number_aliens_x):
-            #
-            alien = Alien(self)
-            alien.x = alien_width + 2 * alien_width * alien_number
-            alien.rect.x = alien.x
-            self.aliens.add(alien)
+            self._create_fleet_alien(alien_number)
+
+    def _create_fleet_alien(self, alien_number):
+        '''Создание пришельца и размещение его в ряду'''
+        alien = Alien(self)
+        alien_width = alien.rect.width
+        alien.x = alien_width + 2 * alien_width * alien_number
+        alien.rect.x = alien.x
+        self.aliens.add(alien)
 
 
 if __name__ == '__main__':
