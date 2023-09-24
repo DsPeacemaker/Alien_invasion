@@ -6,6 +6,7 @@ class Alien(Sprite):
 
     def __init__(self, ai_game):
         super().__init__()
+        self.settings = ai_game.settings
         self.screen = ai_game.screen
 
         # Загрузка изображения чужого и присвоение атрибута rect
@@ -18,3 +19,8 @@ class Alien(Sprite):
 
         # Сохранение точной горизонтальной позиции пришельца
         self.x = float(self.rect.x)
+
+    def update(self):
+        '''Перемещает чужого вправо'''
+        self.x += self.settings.alien_speed
+        self.rect.x = self.x
