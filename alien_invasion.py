@@ -11,7 +11,7 @@ from button import Button
 
 
 class AlienInvasion:
-    # Класс для управления ресурсами и поведением игры.
+    ''' Класс для управления ресурсами и поведением игры.'''
     def __init__(self):
         pygame.init()
         self.settings = Settings()
@@ -54,7 +54,7 @@ class AlienInvasion:
             #pygame.display.flip()
 
     def _check_events(self):
-        # Обрабатывает события клавиатуры и мыши
+        '''Обрабатывает события клавиатуры и мыши'''
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -128,7 +128,11 @@ class AlienInvasion:
         self._check_fleet_edges()
         self.aliens.update()
 
-        # Проверка коллизий "чужой-корабль"
+        # Проверка коллизий 'чужой - корабль'
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            self._ship_hit()
+
+        # Проверка коллизий "чужой-низ экрана"
         self._check_aliens_bottom()
 
     def _update_screen(self):
