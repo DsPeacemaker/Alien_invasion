@@ -115,8 +115,7 @@ class AlienInvasion:
         self.aliens.update()
 
         # Проверка коллизий "чужой-корабль"
-        if pygame.sprite.spritecollideany(self.ship, self.aliens):
-            self._ship_hit()
+        self._check_aliens_bottom()
 
     def _update_screen(self):
         '''Обновляет изображения на экране и отображает новый экран'''
@@ -183,6 +182,15 @@ class AlienInvasion:
         self.ship.center_ship()
 
         sleep(0.5)
+
+    def _check_aliens_bottom(self):
+        '''проверяет добрались ли чужие до нижнего края экрана'''
+        screen_rect = self.screen.get_rect()
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= screen_rect.bottom:
+                # Проходит то же, что при столкновении с кораблем
+                self._ship_hit()
+                break
 
 
 if __name__ == '__main__':
