@@ -7,6 +7,7 @@ from bullet import Bullet
 from alien import Alien
 from game_stats import GameStats
 from scoreboard import Scoreboard
+from button import Button
 
 
 class AlienInvasion:
@@ -30,6 +31,9 @@ class AlienInvasion:
         self.aliens = pygame.sprite.Group()
 
         self._create_fleet()
+
+        # Создание кнопки Play
+        self.play_button = Button(self, "Play")
 
     def run_game(self):
         '''Запуск основного цикла игры'''
@@ -58,6 +62,14 @@ class AlienInvasion:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
+
+    def _check_play_button(self, mouse_pos):
+        '''Запускает игру при нажатии кнопки Play'''
+        if self.play_button.rect.collidepoint(mouse_pos):
+            self.stats.game_active = True
 
     def _check_keydown_events(self, event):
         '''Реагирует на нажатие клавиш'''
@@ -110,7 +122,6 @@ class AlienInvasion:
             self._create_fleet()
             self.bullets.empty()
 
-
     def _update_aliens(self):
         '''Проверяет достиг ли флот края экрана и
         Обновляет позиции всех пришельцев во флоте'''
@@ -129,6 +140,11 @@ class AlienInvasion:
         self.aliens.draw(self.screen)
         # Вывод информации о счете
         self.sb.show_score()
+
+        # Кнопка отображается в том случае, если игра неактивна
+        if not self.stats.game_active:
+            self.play_button.draw_button()
+
         pygame.display.flip()
 
     def _create_fleet(self):
