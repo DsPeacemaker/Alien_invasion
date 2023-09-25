@@ -6,6 +6,7 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 from game_stats import GameStats
+from scoreboard import Scoreboard
 
 
 class AlienInvasion:
@@ -20,6 +21,7 @@ class AlienInvasion:
         pygame.display.set_caption('Alien Invasion')
         # Создание экземпляра для хранения игровой статистики
         self.stats = GameStats(self)
+        self.sb = Scoreboard(self)
 
         # назначение цвета фона
         self.bg_color = (230, 230, 0)
@@ -96,10 +98,15 @@ class AlienInvasion:
         # При обнаружении попадания удалить снаряд и пришельца
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
 
+        if collisions:
+            self.stats.score += self.settings.alien_points
+            self.sb.prep_score()
+
         if not self.aliens:
             # Создание нового флота и уничтожение старых снарядов
             self._create_fleet()
             self.bullets.empty()
+
 
     def _update_aliens(self):
         '''Проверяет достиг ли флот края экрана и
@@ -118,6 +125,8 @@ class AlienInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
+        # Вывод информации о счете
+        self.sb.show_score()
         pygame.display.flip()
 
     def _create_fleet(self):

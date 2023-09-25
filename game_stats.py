@@ -6,6 +6,7 @@ class GameStats:
         '''Инициализация статистики'''
         self.settings = ai_game.settings
         self.reset_stats()
+        self.score = 0
 
     def reset_stats(self):
         '''Статистика в ходе игры'''

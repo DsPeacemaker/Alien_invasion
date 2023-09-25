@@ -23,3 +23,6 @@ class Settings():
         self.fleet_drop_speed = 10
         # 1 - движение вправо, -1 - движение влево
         self.fleet_direction = 1
+
+        # Подсчет очков
+        self.alien_points = 50
