@@ -7,6 +7,8 @@ class GameStats:
         self.settings = ai_game.settings
         self.reset_stats()
         self.score = 0
+        # Игра запускается в активном состоянии
+        self.game_active = True
 
     def reset_stats(self):
         '''Статистика в ходе игры'''
