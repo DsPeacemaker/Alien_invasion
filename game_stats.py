@@ -9,6 +9,8 @@ class GameStats:
         self.score = 0
         # Игра запускается в неактивном состоянии
         self.game_active = False
+        # Глобальный рекорд
+        self.high_score = 0
 
     def reset_stats(self):
         '''Статистика в ходе игры'''
