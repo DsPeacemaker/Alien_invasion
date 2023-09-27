@@ -12,11 +12,11 @@ class Settings():
         self.ship_limit = 3
 
         # Параметры снаряда
-        self.bullet_speed = 2
+        self.bullet_speed = 1
         self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = (230, 0, 0)
-        self.bullets_allowed = 6
+        self.bullets_allowed = 4
 
         # Настройки пришельцев
         self.alien_speed = 1.0

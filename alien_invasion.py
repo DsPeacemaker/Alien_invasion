@@ -74,6 +74,8 @@ class AlienInvasion:
             self.settings.initialize_dynamic_settings()
             # Сброс игровой статистики
             self.stats.reset_stats()
+            self.sb.prep_score()
+            self.sb.prep_level()
             self.stats.game_active = True
 
             # Очистка списков прищельцев и снарядов
@@ -134,7 +136,7 @@ class AlienInvasion:
         number_aliens_x = avaliable_space_x // (2 * alien_width)
         '''Определяет количество рядов, помещающихся на экран'''
         ship_height = self.ship.rect.height
-        avaliable_space_y = (self.settings.screen_height - (3 * alien_height) - ship_height)
+        avaliable_space_y = (self.settings.screen_height - (4 * alien_height) - ship_height)
         number_rows = avaliable_space_y // (2 * alien_height)
 
         # Создание флота вторжения
@@ -159,6 +161,10 @@ class AlienInvasion:
             self._create_fleet()
             self.bullets.empty()
             self.settings.increase_speed()
+
+            # Увеличение уровня
+            self.stats.level += 1
+            self.sb.prep_level()
 
     def _update_aliens(self):
         '''Проверяет достиг ли флот края экрана и
