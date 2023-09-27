@@ -76,6 +76,7 @@ class AlienInvasion:
             self.stats.reset_stats()
             self.sb.prep_score()
             self.sb.prep_level()
+            self.sb.prep_ships()
             self.stats.game_active = True
 
             # Очистка списков прищельцев и снарядов
@@ -158,8 +159,8 @@ class AlienInvasion:
 
         if not self.aliens:
             # Создание нового флота и уничтожение старых снарядов
-            self._create_fleet()
             self.bullets.empty()
+            self._create_fleet()
             self.settings.increase_speed()
 
             # Увеличение уровня
@@ -221,6 +222,7 @@ class AlienInvasion:
         '''Обрабатывает столкновение корабля с пришельцем'''
         if self.stats.ship_left > 0:
             self.stats.ship_left -= 1
+            self.sb.prep_ships()
             # Очистка списков пришельцев и снарядов
             self.aliens.empty()
             self.bullets.empty()
