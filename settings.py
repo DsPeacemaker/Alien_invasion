@@ -22,6 +22,7 @@ class Settings():
         self.bullet_color = (230, 0, 0)
         self.bullets_allowed = 4
         self.shot_sound = pygame.mixer.Sound("audio/laser-shot.wav")
+        self.explosive = pygame.mixer.Sound("audio/explosive.wav")
 
         # Настройки пришельцев
         self.alien_speed = 1.0
