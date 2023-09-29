@@ -113,6 +113,7 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+        self.settings.shot_sound.play()
 
     def _update_bullets(self):
         '''Обновляет позиции снарядов и уничтожает старые снаряды'''
